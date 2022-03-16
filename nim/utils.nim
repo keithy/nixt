@@ -7,7 +7,7 @@ proc findNixFiles*(path: string): seq[string] =
   for x in walkDir(path):
     if x.kind == pcDir:
       result = concat(result, findNixFiles(x.path))
-    elif x.path.endsWith ".nix":
+    elif x.path.endsWith ".nixt":
       result.add(x.path)
 
 proc commonPrefix*(paths: openArray[string], sep = "/"): string =
