@@ -23,7 +23,7 @@ proc nix*(
   strict: bool = false,
   verbose: int = 0,
   debug: bool = false,
-  args: varargs[string]): JsonNode =
+  args: varargs[string]):
   let
     argArgs = getArgArgs(args)
     verboseArg = if verbose > 1: "--show-trace" else: ""
@@ -39,6 +39,6 @@ proc nix*(
     echo res
     echo ""
   if err == 0:
-    return res.parseJson()
+    return res
   else:
     raise newException(NixError, res)

@@ -44,7 +44,7 @@ proc runSuites*(path: string, verbose: int = 0, debug: bool = false): Suites =
       var testCase: Case
       testCase.name = caseName
       try:
-        let jResult = nix("get-case",
+        let res = nix("get-case",
                           strict=true,
                           verbose=verbose,
                           debug=debug,
@@ -52,8 +52,11 @@ proc runSuites*(path: string, verbose: int = 0, debug: bool = false): Suites =
                             fmt"""path="{spec.file}"""",
                             fmt"""case="{testCase.name}"""",
                           ])
-        testCase.output = fmt"{jResult}"
-        testCase.passed = to(jResult, bool)
+        testCase.output = fmt"{res}"
+        try:
+          testCase.passed = to(res.parseJson(), bool)
+        except NixError as e:
+          testCase.passed = false
       except NixError as e:
         testCase.passed = false
         testCase.output = e.msg
