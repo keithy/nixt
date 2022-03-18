@@ -52,7 +52,7 @@ proc runSuites*(path: string, verbose: int = 0, debug: bool = false): Suites =
                             fmt"""path="{spec.file}"""",
                             fmt"""case="{testCase.name}"""",
                           ])
-        testCase.output = ""
+        testCase.output = fmt"{jResult}"
         testCase.passed = to(jResult, bool)
       except NixError as e:
         testCase.passed = false
