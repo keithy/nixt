@@ -44,7 +44,7 @@ proc runSuites*(path: string, verbose: int = 0, debug: bool = false): Suites =
       var testCase: Case
       testCase.name = caseName
       try:
-        let res = string nix("get-case",
+        let res string =  nix("get-case",
                           strict=true,
                           verbose=verbose,
                           debug=debug,
