@@ -23,7 +23,7 @@ proc nix*(
   strict: bool = false,
   verbose: int = 0,
   debug: bool = false,
-  args: varargs[string]):
+  args: varargs[string]): =
   let
     argArgs = getArgArgs(args)
     verboseArg = if verbose > 1: "--show-trace" else: ""
