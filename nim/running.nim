@@ -55,7 +55,7 @@ proc runSuites*(path: string, verbose: int = 0, debug: bool = false): Suites =
         testCase.output = fmt"{res}"
         try:
           testCase.passed = to(res.parseJson(), bool)
-        except NixError as e:
+        except JsonKindError as e:
           testCase.passed = false
       except NixError as e:
         testCase.passed = false

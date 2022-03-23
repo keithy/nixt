@@ -48,11 +48,12 @@ proc findTestSpecs*(path: string, verbose: int = 0, debug: bool = false): Discov
 
   for file in findNixFiles(path):
     try:
-      let jSpec = nix("get-spec",
+      let res = nix("get-spec",
                       strict=true,
                       verbose=verbose,
                       debug=debug,
                       args=[fmt"""path="{file}""""])
+      let jSpec: JsonNode = res.parseJson()
       jSpec["file"] = newJString(file)
       let spec = to(jSpec, SuiteSpec)
       specs.add(spec)
